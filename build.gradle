@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 1.8
+
+mainClassName = 'com.github.weiqgu.learn.spark.WebApplication'
+
+dependencies {
+    implementation 'com.sparkjava:spark-core:2.9.1'
+}
+
+repositories {
+    mavenCentral()
+}
