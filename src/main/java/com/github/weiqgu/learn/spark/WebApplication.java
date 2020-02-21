@@ -32,5 +32,7 @@ public class WebApplication {
 
         // For POST /json-greeting, use JsonGreetingRoute to handle the request to return a json response
         Spark.post("/json-greeting", "application/json", new PostJsonGreetingRoute(), new JsonTransformer());
+
+        Spark.get("/greeting.html", new GreetingHtmlRoute());
     }
 }

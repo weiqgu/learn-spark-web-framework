@@ -9,7 +9,7 @@
  * Check out branch
  
  ```bash
-   git branch <branch name> 
+   git checkout <branch name> 
  ```
 
  * Check local repo status

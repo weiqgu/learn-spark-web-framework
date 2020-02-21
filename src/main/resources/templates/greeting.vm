@@ -1,0 +1,8 @@
+<html>
+ <header>
+  <title>Greetings!!!</title>
+  </header>
+ <body>
+    <h2>Hello #if ($name) $name #else to you! #end from Spark at $time
+ </body>
+</html>
