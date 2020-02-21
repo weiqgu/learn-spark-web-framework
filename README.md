@@ -1,3 +1,4 @@
+# Step1
 ##Git commands
  
  * Create a branch
@@ -67,3 +68,38 @@ build information.  There are two things to pay attention in the build.gradle in
 ```
 
   If more library is needed, it should be added inside the dependencies bracket
+  
+  
+  #Step2
+  
+  ## Add gson library for json support
+  
+  Add the gson library in the build.gradle under dependencies
+  ```
+      implementation 'com.google.code.gson:gson:2.8.6'
+  ```
+  
+  ## Add a route /json-greeting
+  This route also has *ResponseTransformer* implementation **JsonTransformer** which transforms java object to a json.
+  
+  ## Query parameter
+  JsonGreetingRoute uses *request.queryMap* to get the query parameter in the url. For example, 
+  ```
+     http://localhost:8080/json-greeting?name=john
+  ```
+  The name is a query parameter that will be retrieved by:
+  ```
+    String name = request.queryMap().get("name").value();
+  ```
+  The *name* will have value "john" for the above URL.
+  
+  ## Accept incoming json
+  *PostjsonGreetingRoute* is configured to accept POST http request with accept type of application/json
+  ```
+   Spark.post("/json-greeting", "application/json", new PostJsonGreetingRoute(), new JsonTransformer());    
+  ```
+  This means the application will handle POST request on /json-greeting, and the request accept the application/json as
+  response.
+  
+  Try use postman to send request with different Accept Header
+   

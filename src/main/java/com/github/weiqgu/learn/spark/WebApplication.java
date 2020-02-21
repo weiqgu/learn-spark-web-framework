@@ -26,5 +26,11 @@ public class WebApplication {
 
         // For GET /pretty-greeting, use GreetingRoute to handle the request
         Spark.get("/pretty-greeting", new PrettyGreetingRoute());
+
+        // For GET /json-greeting, use JsonGreetingRoute to handle the request to return a json response
+        Spark.get("/json-greeting", new JsonGreetingRoute(), new JsonTransformer());
+
+        // For POST /json-greeting, use JsonGreetingRoute to handle the request to return a json response
+        Spark.post("/json-greeting", "application/json", new PostJsonGreetingRoute(), new JsonTransformer());
     }
 }
