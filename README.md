@@ -103,3 +103,10 @@ build information.  There are two things to pay attention in the build.gradle in
   
   Try use postman to send request with different Accept Header
    
+  #Step 3
+  Using template to generate response html.  The template contains place holder which will be replaced 
+  by provided data during the run of application.
+  
+  Check the *GreetingHtmlRoute* class and *src/main/resources/templates/greeting.vm* template.  The Velocity
+  template engine merges the data with template. *$name* is place holder tag, and *#if* *#else* are logic
+  operation tag 
