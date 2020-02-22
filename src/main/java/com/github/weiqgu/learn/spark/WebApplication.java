@@ -20,6 +20,21 @@ public class WebApplication {
         // Listen to the port
         Spark.port(port);
 
+        // Set public folder
+        Spark.staticFileLocation("/public");
+
+        // Add a filter, that for any /protected/ url, this filter will be run before
+        // the route, here it checks if the user has logged in by checking if the
+        // session contains a user attribute
+        // If the no such session attribute exists, the browser will be redirected
+        // to login page
+        Spark.before("/protected/*", (request, response) -> {
+            String userName = request.session().attribute("user");
+            System.out.println("Username: " + userName);
+            if (userName == null || userName.length() == 0) {
+                response.redirect("/login");
+            }
+        });
 
         // For GET /greeting, use GreetingRoute to handle the request
         Spark.get("/greeting", new GreetingRoute());
@@ -34,5 +49,16 @@ public class WebApplication {
         Spark.post("/json-greeting", "application/json", new PostJsonGreetingRoute(), new JsonTransformer());
 
         Spark.get("/greeting.html", new GreetingHtmlRoute());
+
+        Spark.get("/login", new LoginRoute());
+        Spark.post("/doLogin", new DoLoginRoute());
+        Spark.get("/logout", (request, response) -> {
+            request.session().invalidate();
+            response.redirect("/");
+            return null;
+        });
+
+        Spark.get("/protected/", new StaticTemplateRoute("/templates/protected.vm"));
+
     }
 }

@@ -1,0 +1,9 @@
+<html>
+    <head>
+        <title>Secured Area</title>
+    </head>
+<body>
+<h1> This is a secured area</h1> <br/>
+<a href="/logout">Logout</a>
+</body>
+</html>

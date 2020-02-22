@@ -1,0 +1,18 @@
+<html>
+<header>
+    <title>Login</title>
+</header>
+<body>
+<h2> Please Login in</h2>
+#if ($error)
+  <h3 sytle="color:red">$error</h3>
+#end
+<form action="/doLogin" method="POST">
+    User Name: <input type="text" name="name"/> <br/>
+
+    Password: <input type="password" name="password"/> <br/>
+
+    <input type="submit" value="Login">
+</form>
+</body>
+</html>

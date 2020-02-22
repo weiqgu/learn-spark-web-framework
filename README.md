@@ -110,3 +110,45 @@ build information.  There are two things to pay attention in the build.gradle in
   Check the *GreetingHtmlRoute* class and *src/main/resources/templates/greeting.vm* template.  The Velocity
   template engine merges the data with template. *$name* is place holder tag, and *#if* *#else* are logic
   operation tag 
+  
+  #Step 4
+  
+  ### Redirect
+    
+   *response.redirect(location)* this will redirect browser to the new *location* URL  
+    
+  ### Filter
+  Spark.before can define a filter that runs before any request is routed to Routes.  We can use this for example to check
+  if the user is logged in for any protected URLs
+  
+  ### Session
+  Session is created on Server side for requests comes from the same browser. We can store user information in session 
+  after login and use it check if the user has logged in
+  
+  ### Login
+  /login route is displaying the login page
+  /doLogin is the route that handle the user login, i.e. check user name/password, and redirect to protected url if login is successful,
+  or login page for invalid login
+  
+  ### Abstrat class
+  As returning a page from template is commonly used, and the logic of doing that is common, an abstract class
+  *AbstractTemplateRoute* is created to do the common render logic. Subclasses now only implement two abstract methods:
+  * *getTemplateName*: which returns the template name
+  * *getModel*: which returns the Model that will merge with template name
+  This way, the render code is shared among on the subclasses
+    
+  *GreetinghtmlRoute* is refactored to use this newly created Abstract class as well as *LoginRoute*.
+  
+  ### Override superclass method
+  *DoLoginRoute* extends the *AbstractTemplateRoute*, but it has some conditional logic, if the login succeeds, then it should redirects
+  to /protedted url, and if it fails, it should render a templated login page.  So it has to override the *handle* method implemented in
+  the *AbstractTemplateRoute*
+  
+  ### Static contents
+  *Spark.staticFileLocation* defines all the static file locations that Spark can directly serves.
+  
+  ### StaticTemplateRoute
+  Another concrete subclass from *AbstractTemplateRoute*, this is used for static template which doesn't need to any data to merged in.
+  This is normally not very useful (why not just use the static content).  This is to workaround a problem that the Spark filter is 
+  applied after static file is served, so we can't put protected content in the static file location, as user can access them without
+  login
